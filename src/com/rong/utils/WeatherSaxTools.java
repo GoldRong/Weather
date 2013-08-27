@@ -1,13 +1,9 @@
 package com.rong.utils;
 
 import java.util.HashMap;
-import java.util.List;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
-import android.util.Log;
 
 public class WeatherSaxTools extends DefaultHandler {
 	private HashMap<String,String> hashMap;
