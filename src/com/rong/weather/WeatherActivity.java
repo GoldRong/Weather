@@ -28,8 +28,9 @@ import android.app.Activity;
 public class WeatherActivity extends Activity implements OnClickListener {
 	private HashMap<String, String> hashMap;
 	private Button layout_weather_b;
-	private String url;
+	private String jsonUrl;
 	private String jsonResult;
+	private String iconUrl;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,7 +57,7 @@ public class WeatherActivity extends Activity implements OnClickListener {
 			StringBuilder sb = new StringBuilder();
 			try {
 				HttpClient httpClient = new DefaultHttpClient();
-				HttpGet httpGet = new HttpGet(url);
+				HttpGet httpGet = new HttpGet(jsonUrl);
 				HttpResponse response = httpClient.execute(httpGet);
 				StatusLine statusLine = response.getStatusLine();
 				int statusCode = statusLine.getStatusCode();
@@ -85,6 +86,9 @@ public class WeatherActivity extends Activity implements OnClickListener {
 				JSONObject jsonObject=new JSONObject(result);
 				JSONObject json=jsonObject.getJSONObject("weatherinfo");
 				Log.i("city", json.getString("city"));
+				
+				iconUrl="http://m.weather.com.cn/img/b"+json.getString("img1")+".gif";
+				Log.i("iconUrl", ""+iconUrl);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -126,8 +130,8 @@ public class WeatherActivity extends Activity implements OnClickListener {
 
 		@Override
 		protected void onPostExecute(String result) {
-			url = "http://m.weather.com.cn/data/" + hashMap.get("成都")+ ".html";
-			Log.i("url", ""+url);
+			jsonUrl = "http://m.weather.com.cn/data/" + hashMap.get("北京")+ ".html";
+			Log.i("jsonUrl", ""+jsonUrl);
 		}
 	}
 }
